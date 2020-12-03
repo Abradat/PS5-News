@@ -14,3 +14,7 @@ server:
 crawler:
   cnn:
     base-url: https://edition.cnn.com/search
+
+webdriver:
+  chrome:
+#    driver: /Users/abradat/Desktop/Work/Code/Cor-Paul/driver/chromedriver

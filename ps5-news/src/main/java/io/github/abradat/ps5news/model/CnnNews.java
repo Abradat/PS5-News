@@ -3,6 +3,7 @@ package io.github.abradat.ps5news.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "CNN_NEWS")
@@ -13,14 +14,20 @@ public class CnnNews implements Serializable {
     @Column(name = "ID")
     private long id;
 
-    @Column(name = "NEWS_TITLE", nullable = false, columnDefinition = "VARCHAR(100)")
-    private String newsTitle;
+    @Column(name = "TITLE", nullable = false, columnDefinition = "VARCHAR(255)")
+    private String title;
 
-    @Column(name = "NEWS_BODY", nullable = false, columnDefinition = "TEXT")
-    private String newsBody;
+    @Column(name = "BODY", nullable = false, columnDefinition = "TEXT")
+    private String body;
 
-    @Column(name = "NEWS_TIME", nullable = false)
-    private LocalDateTime newsTime;
+    @Column(name = "PUBLISH_DATE", nullable = false)
+    private Date publishDate;
+
+    @Column(name = "HEADER_IMAGE_URL", nullable = false, columnDefinition = "VARCHAR(255)")
+    private String headerImageUrl;
+
+    @Column(name = "URL", nullable = false, columnDefinition = "VARCHAR(255)")
+    private String url;
 
     public CnnNews() {
     }
@@ -33,27 +40,43 @@ public class CnnNews implements Serializable {
         this.id = id;
     }
 
-    public String getNewsTitle() {
-        return newsTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNewsTitle(String newsTitle) {
-        this.newsTitle = newsTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getNewsBody() {
-        return newsBody;
+    public String getBody() {
+        return body;
     }
 
-    public void setNewsBody(String newsBody) {
-        this.newsBody = newsBody;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public LocalDateTime getNewsTime() {
-        return newsTime;
+    public Date getPublishDate() {
+        return publishDate;
     }
 
-    public void setNewsTime(LocalDateTime newsTime) {
-        this.newsTime = newsTime;
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public String getHeaderImageUrl() {
+        return headerImageUrl;
+    }
+
+    public void setHeaderImageUrl(String headerImageUrl) {
+        this.headerImageUrl = headerImageUrl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
