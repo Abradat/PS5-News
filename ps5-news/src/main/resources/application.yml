@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: PS5-NEWS
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ps5_news
+    username: ps5
+    password: ps5_123
+  jpa:
+    hibernate:
+      ddl-auto: none
+server:
+  port: 8080
+
+crawler:
+  cnn:
+    base-url: https://edition.cnn.com/search
