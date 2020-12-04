@@ -12,11 +12,11 @@ export class CnnService extends NewsData {
   }
 
   getAllNews(): Observable<News[]> {
-    return this.http.get<News[]>('http://localhost:8080/api/cnn/news');
+    return this.http.get<News[]>('http://185.235.40.19:8080/api/cnn/news');
   }
 
   getNews(id: number): Observable<News> {
-    return this.http.get<News>('http://localhost:8080/api/cnn/news/' + id);
+    return this.http.get<News>('http://185.235.40.19:8080/api/cnn/news/' + id);
   }
   setCurrentNews(news): void {
     this.currentNews = news;
@@ -26,6 +26,6 @@ export class CnnService extends NewsData {
   }
 
   crawlNews(): Observable<News[]> {
-    return this.http.get<News[]>('http://localhost:8080/api/cnn/actions/crawl');
+    return this.http.get<News[]>('http://185.235.40.19:8080/api/cnn/actions/crawl');
   }
 }

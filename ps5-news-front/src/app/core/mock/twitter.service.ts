@@ -11,10 +11,10 @@ export class TwitterService extends TweetData{
   }
 
   getTweets(): Observable<Tweet[]> {
-    return this.http.get<Tweet[]>('http://localhost:8080/api/twitter/tweets');
+    return this.http.get<Tweet[]>('http://185.235.40.19:8080/api/twitter/tweets');
   }
 
   crawlTweets(): Observable<Tweet[]> {
-    return this.http.get<Tweet[]>('http://localhost:8080/api/twitter/actions/crawl');
+    return this.http.get<Tweet[]>('http://185.235.40.19:8080/api/twitter/actions/crawl');
   }
 }
