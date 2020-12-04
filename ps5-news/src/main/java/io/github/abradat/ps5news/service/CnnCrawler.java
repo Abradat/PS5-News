@@ -9,16 +9,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +26,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class CnnCrawler {
@@ -86,6 +79,7 @@ public class CnnCrawler {
                 return Jsoup.parse(driver.getPageSource());
             }
         });
+        this.driver.close();
         Elements results = doc.getElementsByClass("cnn-search__result");
         ArrayList<CnnNews> cnnNewsList = new ArrayList<CnnNews>();
         for(Element result: results) {
@@ -101,6 +95,9 @@ public class CnnCrawler {
             String body = getNewsBody(url);
             Date publishDate = getNewsDate(publishDateString);
             LOGGER.info(title);
+            if(cnnNewsRepository.findCnnNewsByUrl(url) != null) {
+                continue;
+            }
             CnnNews cnnNews = new CnnNews();
             cnnNews.setTitle(title);
             cnnNews.setUrl(url);

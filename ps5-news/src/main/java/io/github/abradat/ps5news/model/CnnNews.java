@@ -26,7 +26,7 @@ public class CnnNews implements Serializable {
     @Column(name = "HEADER_IMAGE_URL", nullable = false, columnDefinition = "VARCHAR(255)")
     private String headerImageUrl;
 
-    @Column(name = "URL", nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "URL", nullable = false, columnDefinition = "VARCHAR(255)", unique = true)
     private String url;
 
     public CnnNews() {
