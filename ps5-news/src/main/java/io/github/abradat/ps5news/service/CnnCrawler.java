@@ -71,6 +71,11 @@ public class CnnCrawler {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
 //        this.driver = new ChromeDriver(options);
+//        this.driver = new ChromeDriver();
+//        this.crawlNews();
+    }
+
+    public ServiceResult<List<FindAllNewsResponse>> crawlNews(){
         DesiredCapabilities dcap = DesiredCapabilities.chrome();
         try {
 //            this.driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), dcap);
@@ -78,11 +83,6 @@ public class CnnCrawler {
         } catch (MalformedURLException e) {
             LOGGER.error("REMOTE NOT SUCCESSFUL");
         }
-//        this.driver = new ChromeDriver();
-//        this.crawlNews();
-    }
-
-    public ServiceResult<List<FindAllNewsResponse>> crawlNews(){
         this.driver.get("https://edition.cnn.com/search?q=ps5&size=25");
         Wait<WebDriver> wait = new FluentWait<WebDriver>(this.driver)
                 .withTimeout(Duration.ofSeconds(10))
