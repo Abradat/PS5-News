@@ -115,7 +115,6 @@ public class CnnCrawler {
                     .getAllElements().first().getElementsByIndexEquals(1).first().text();
             String body = getNewsBody(url);
             Date publishDate = getNewsDate(publishDateString);
-            LOGGER.info(title);
             if(cnnNewsRepository.findCnnNewsByUrl(url) != null) {
                 continue;
             }
