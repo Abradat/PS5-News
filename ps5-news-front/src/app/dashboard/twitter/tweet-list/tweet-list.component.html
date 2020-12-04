@@ -1,0 +1,25 @@
+<nb-card>
+    <nb-card-header>People Tweets About PS5</nb-card-header>
+</nb-card>
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-3 col-sm-12" *ngFor="let tweet of tweets">
+                <nb-card status="info" >
+                    <nb-card-header>
+                        @{{tweet.username}}
+
+                        <nb-badge *ngIf="tweet.sentiment=='VERY_NEGATIVE'" [text]="tweet.sentiment" status="warning" position="top end"></nb-badge>
+                        <nb-badge *ngIf="tweet.sentiment=='NEGATIVE'" [text]="tweet.sentiment" status="danger" position="top end"></nb-badge>
+                        <nb-badge *ngIf="tweet.sentiment=='NEUTRAL'" [text]="tweet.sentiment" status="control" position="top end"></nb-badge>
+                        <nb-badge *ngIf="tweet.sentiment=='POSITIVE'" [text]="tweet.sentiment" status="success" position="top end"></nb-badge>
+                        <nb-badge *ngIf="tweet.sentiment=='VERY_POSITIVE'" [text]="tweet.sentiment" status="success" position="top end"></nb-badge>
+                    </nb-card-header>
+                    <nb-card-body>
+                        {{tweet.tweetText}}
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

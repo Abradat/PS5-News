@@ -1,0 +1,8 @@
+@import '../../../shared/styles/themes';
+
+@include nb-install-component {
+  .image-fit {
+    width: 100%;
+    height: auto;
+  }
+}

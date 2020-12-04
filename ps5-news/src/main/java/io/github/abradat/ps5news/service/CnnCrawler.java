@@ -64,7 +64,7 @@ public class CnnCrawler {
             LOGGER.error("REMOTE NOT SUCCESSFUL");
         }
 //        this.driver = new ChromeDriver();
-//        this.crawlNews();
+        this.crawlNews();
     }
 
     public void crawlNews(){

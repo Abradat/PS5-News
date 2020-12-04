@@ -1,0 +1,11 @@
+<nb-card *ngIf="selectedNews != null">
+    <nb-card-header>
+        {{selectedNews.title}}
+    </nb-card-header>
+</nb-card>
+<nb-card *ngIf="selectedNews != null">
+    <nb-card-body>
+        <div [innerHTML]="selectedNews.body">
+        </div>
+    </nb-card-body>
+</nb-card>

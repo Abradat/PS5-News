@@ -1,0 +1,21 @@
+<nb-card>
+    <nb-card-header>PS5 News From CNN Website</nb-card-header>
+</nb-card>
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-4 col-sm-12" *ngFor="let new of news">
+                <nb-card status="danger" >
+                    <nb-card-header>{{new.title}}</nb-card-header>
+                    <nb-card-body>
+                        <img [src]= new.headerImageUrl class="image-fit">
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button nbButton fullWidth status="primary" outline (click)="showDetails(new)">Read this article</button>
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+
