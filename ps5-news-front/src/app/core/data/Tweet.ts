@@ -9,4 +9,5 @@ export interface Tweet {
 
 export abstract class TweetData {
     abstract getTweets(): Observable<Tweet[]>;
+    abstract crawlTweets(): Observable<Tweet[]>;
 }

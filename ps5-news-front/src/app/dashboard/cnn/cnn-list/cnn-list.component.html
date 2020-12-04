@@ -1,8 +1,17 @@
 <nb-card>
-    <nb-card-header>PS5 News From CNN Website</nb-card-header>
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-4">
+                PS5 News From CNN Website
+            </div>
+            <div class="col-md-2 offset-md-6">
+                <button nbButton fullWidth outline status="primary" [nbSpinner]="crawlSpinner" (click)="crawlNews()">CRAWL NEWS</button>
+            </div>
+        </div>
+    </nb-card-header>
 </nb-card>
 <nb-card>
-    <nb-card-body>
+    <nb-card-body [nbSpinner]="crawlSpinner">
         <div class="row">
             <div class="col-md-4 col-sm-12" *ngFor="let new of news">
                 <nb-card status="danger" >

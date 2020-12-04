@@ -16,6 +16,22 @@ services:
       - "4444:4444"
     volumes: 
       - /dev/shm:/dev/shm
+  backend:
+    build: 
+      ./ps5-news
+    ports:
+      - "8080:8080"
+    volumes:
+      - ~/.m2:/root/.m2
+    depends_on: 
+      - postgres
+      - chrome
+    environment: 
+      DATASOURCE_URL: jdbc:postgresql://postgres:5432/ps5_news
+      DATASOURCE_USERNAME:  ps5
+      DATASOURCE_PASSWORD:  ps5_123
+      SELENIUM_URL: http://chrome:4444/wd/hub
+    command: mvn clean package -DskipTests=true spring-boot:run
 volumes: 
   postgres_data:
     name: ps5_news_postgres_data

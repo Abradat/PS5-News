@@ -15,7 +15,7 @@
     <description>This project is for collecting latest news from CNN and latest tweets about PS5</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>8</java.version>
     </properties>
 
     <dependencies>

@@ -12,4 +12,5 @@ export interface News {
 export abstract class NewsData {
     abstract getAllNews(): Observable<News[]>;
     abstract getNews(newsId: number): Observable<News>;
+    abstract crawlNews(): Observable<News[]>;
 }

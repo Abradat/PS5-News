@@ -14,6 +14,7 @@ export class CnnListComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute) { }
   news: News[];
+  crawlSpinner = false;
   ngOnInit(): void {
     this.cnnService.getAllNews().subscribe(
         (data) => {
@@ -25,6 +26,21 @@ export class CnnListComponent implements OnInit {
   showDetails(news: News) {
     this.cnnService.setCurrentNews(news);
     this.router.navigate(['./', news.id], {relativeTo: this.route});
+  }
+
+  crawlNews() {
+    this.crawlSpinner = true;
+    this.cnnService.crawlNews().subscribe(
+        (data) => {
+          // this.news = data;
+          this.cnnService.getAllNews().subscribe(
+              (finalData) => {
+                this.news = finalData;
+                this.crawlSpinner = false;
+              },
+          );
+        },
+    );
   }
 
 }

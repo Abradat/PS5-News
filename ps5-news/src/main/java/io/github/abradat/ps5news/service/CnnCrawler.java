@@ -1,9 +1,14 @@
 package io.github.abradat.ps5news.service;
 
 import com.google.common.base.Function;
+import io.github.abradat.ps5news.common.ResultStatus;
+import io.github.abradat.ps5news.common.ServiceResult;
 import io.github.abradat.ps5news.model.CnnNews;
+import io.github.abradat.ps5news.model.dto.FindAllNewsResponse;
+import io.github.abradat.ps5news.model.dto.FindNewsResponse;
 import io.github.abradat.ps5news.repository.CnnNewsRepository;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
+import org.dozer.DozerBeanMapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -32,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -42,13 +48,21 @@ public class CnnCrawler {
     @Value("${crawler.cnn.base-url}")
     private String cnnUrl;
 
+    @Value("${selenium.url}")
+    private String seleniumUrl;
+
 //    private WebDriver driver;
     private WebDriver driver;
     private CnnNewsRepository cnnNewsRepository;
+    private DozerBeanMapper mapper;
+    private boolean firstTime;
 
     @Autowired
-    public CnnCrawler(CnnNewsRepository cnnNewsRepository) {
+    public CnnCrawler(CnnNewsRepository cnnNewsRepository,
+                      DozerBeanMapper mapper) {
         this.cnnNewsRepository = cnnNewsRepository;
+        this.mapper = mapper;
+        this.firstTime = true;
     }
 
     @PostConstruct
@@ -59,38 +73,41 @@ public class CnnCrawler {
 //        this.driver = new ChromeDriver(options);
         DesiredCapabilities dcap = DesiredCapabilities.chrome();
         try {
-            this.driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), dcap);
+//            this.driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), dcap);
+            this.driver = new RemoteWebDriver(new URL(seleniumUrl), dcap);
         } catch (MalformedURLException e) {
             LOGGER.error("REMOTE NOT SUCCESSFUL");
         }
 //        this.driver = new ChromeDriver();
-        this.crawlNews();
+//        this.crawlNews();
     }
 
-    public void crawlNews(){
+    public ServiceResult<List<FindAllNewsResponse>> crawlNews(){
         this.driver.get("https://edition.cnn.com/search?q=ps5&size=25");
         Wait<WebDriver> wait = new FluentWait<WebDriver>(this.driver)
                 .withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(NoSuchElementException.class);
-        WebElement button = wait.until(new Function<WebDriver, WebElement>() {
-            @NullableDecl
-            @Override
-            public WebElement apply(@NullableDecl WebDriver webDriver) {
-                return driver.findElement(By.id("onetrust-accept-btn-handler"));
-            }
-        });
-        button.click();
+        if(firstTime) {
+            WebElement button = wait.until(new Function<WebDriver, WebElement>() {
+                @NullableDecl
+                @Override
+                public WebElement apply(@NullableDecl WebDriver webDriver) {
+                    return driver.findElement(By.id("onetrust-accept-btn-handler"));
+                }
+            });
+            this.firstTime = false;
+            button.click();
+        }
 
         Document doc = wait.until(new Function<WebDriver, Document>() {
             @NullableDecl
             @Override
             public Document apply(@NullableDecl WebDriver webDriver) {
-//                return driver.findElements(By.className("cnn-search__result"));
                 return Jsoup.parse(driver.getPageSource());
             }
         });
-        this.driver.close();
+//        this.driver.close();
         Elements results = doc.getElementsByClass("cnn-search__result");
         ArrayList<CnnNews> cnnNewsList = new ArrayList<CnnNews>();
         for(Element result: results) {
@@ -119,6 +136,11 @@ public class CnnCrawler {
             cnnNewsList.add(cnnNews);
         }
         this.cnnNewsRepository.saveAll(cnnNewsList);
+        List<FindAllNewsResponse> responseList = new ArrayList<>();
+        for(CnnNews cnnNews: cnnNewsList) {
+            responseList.add(mapper.map(cnnNews, FindAllNewsResponse.class));
+        }
+        return new ServiceResult<>(responseList, ResultStatus.SUCCESSFUL, "CRAWLED SUCCESSFULLY");
     }
 
     public String getNewsBody(String newsUrl) {

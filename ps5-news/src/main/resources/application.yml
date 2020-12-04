@@ -2,12 +2,15 @@ spring:
   application:
     name: PS5-NEWS
   datasource:
-    url: jdbc:postgresql://localhost:5432/ps5_news
-    username: ps5
-    password: ps5_123
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  #    url: jdbc:postgresql://localhost:5432/ps5_news
+#    username: ps5
+#    password: ps5_123
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 server:
   port: 8080
 
@@ -15,12 +18,12 @@ crawler:
   cnn:
     base-url: https://edition.cnn.com/search
 
-webdriver:
-  chrome:
-#    driver: /Users/abradat/Desktop/Work/Code/Cor-Paul/driver/chromedriver
 oauth:
   consumer-key: JFlrs4RKdOYvezSLwoHltQBhE
   consumer-secret: dNtIpNHkhjK7Y0yLclJO8Yz67hZL1z6yrcFbjFvkDjhTG50TNq
   access-token: 796224920162365442-tCSBXRiM018oEcjgShFDopyIdrvmGcn
   access-token-secret: b5KApISBvLYoFJzocBQB5kt9cHvPlzm6mTaGYzAwF2EkQ
+
+selenium:
+  url: ${SELENIUM URL}
 

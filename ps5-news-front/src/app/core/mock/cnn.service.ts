@@ -25,4 +25,7 @@ export class CnnService extends NewsData {
     return observableOf(this.currentNews);
   }
 
+  crawlNews(): Observable<News[]> {
+    return this.http.get<News[]>('http://localhost:8080/api/cnn/actions/crawl');
+  }
 }
