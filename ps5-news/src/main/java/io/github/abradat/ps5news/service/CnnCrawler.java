@@ -5,7 +5,6 @@ import io.github.abradat.ps5news.common.ResultStatus;
 import io.github.abradat.ps5news.common.ServiceResult;
 import io.github.abradat.ps5news.model.CnnNews;
 import io.github.abradat.ps5news.model.dto.FindAllNewsResponse;
-import io.github.abradat.ps5news.model.dto.FindNewsResponse;
 import io.github.abradat.ps5news.repository.CnnNewsRepository;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.dozer.DozerBeanMapper;
@@ -16,7 +15,6 @@ import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -51,7 +49,6 @@ public class CnnCrawler {
     @Value("${selenium.url}")
     private String seleniumUrl;
 
-//    private WebDriver driver;
     private WebDriver driver;
     private CnnNewsRepository cnnNewsRepository;
     private DozerBeanMapper mapper;
@@ -67,22 +64,18 @@ public class CnnCrawler {
 
     @PostConstruct
     public void init() {
-//        System.setProperty("webdriver.chrome.driver", "/Users/abradat/Desktop/Work/Code/Cor-Paul/driver/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
-//        this.driver = new ChromeDriver(options);
-//        this.driver = new ChromeDriver();
-//        this.crawlNews();
     }
 
     public ServiceResult<List<FindAllNewsResponse>> crawlNews(){
         DesiredCapabilities dcap = DesiredCapabilities.chrome();
         try {
-//            this.driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), dcap);
             this.driver = new RemoteWebDriver(new URL(seleniumUrl), dcap);
         } catch (MalformedURLException e) {
             LOGGER.error("REMOTE NOT SUCCESSFUL");
         }
+        LOGGER.info("STARTING CRAWLING CNN");
         this.driver.get("https://edition.cnn.com/search?q=ps5&size=25");
         Wait<WebDriver> wait = new FluentWait<WebDriver>(this.driver)
                 .withTimeout(Duration.ofSeconds(10))
@@ -140,6 +133,7 @@ public class CnnCrawler {
         for(CnnNews cnnNews: cnnNewsList) {
             responseList.add(mapper.map(cnnNews, FindAllNewsResponse.class));
         }
+        LOGGER.info("CNN CRAWLED");
         return new ServiceResult<>(responseList, ResultStatus.SUCCESSFUL, "CRAWLED SUCCESSFULLY");
     }
 

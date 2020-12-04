@@ -56,10 +56,10 @@ public class TwitterCrawler {
         configurationBuilder.setOAuthConsumerKey(consumerKey).setOAuthConsumerSecret(consumerSecret)
                 .setOAuthAccessToken(accessToken).setOAuthAccessTokenSecret(accessTokenSecret);
         twitterFactory = new TwitterFactory(configurationBuilder.build());
-//        crawlTweets("ps5");
     }
 
     public ServiceResult<List<FindAllTweetsResponse>> crawlTweets() {
+        LOGGER.info("STARTING CRAWLING TWITTER");
         Twitter twitter = twitterFactory.getInstance();
         Query query = new Query("ps5" + " -filter:retweets -filter:links -filter:replies -filter:images");
         query.setCount(25);
@@ -91,14 +91,7 @@ public class TwitterCrawler {
         for(Tweet tweetToSave: tweetsToSave) {
             responseList.add(mapper.map(tweetToSave, FindAllTweetsResponse.class));
         }
+        LOGGER.info("TWITTER CRAWLED");
         return new ServiceResult<>(responseList, ResultStatus.SUCCESSFUL, "CRAWLED SUCCESSFULLY");
     }
-
-//    public void saveTweets(List<Tweet> tweets) {
-//        for (Tweet tweet: tweets) {
-//            if(tweetRepository.findTweetById(tweet.getId()) == null) {
-//
-//            }
-//        }
-//    }
 }

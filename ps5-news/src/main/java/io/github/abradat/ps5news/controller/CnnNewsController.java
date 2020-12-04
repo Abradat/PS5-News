@@ -3,7 +3,6 @@ package io.github.abradat.ps5news.controller;
 import io.github.abradat.ps5news.common.EntityNotFoundException;
 import io.github.abradat.ps5news.common.ResultStatus;
 import io.github.abradat.ps5news.common.ServiceResult;
-import io.github.abradat.ps5news.model.CnnNews;
 import io.github.abradat.ps5news.model.dto.FindAllNewsResponse;
 import io.github.abradat.ps5news.model.dto.FindNewsResponse;
 import io.github.abradat.ps5news.service.CnnNewsService;

@@ -1,7 +1,5 @@
 package io.github.abradat.ps5news.controller;
 
-import io.github.abradat.ps5news.common.EntityNotFoundException;
-import io.github.abradat.ps5news.common.ResultStatus;
 import io.github.abradat.ps5news.common.ServiceResult;
 import io.github.abradat.ps5news.model.dto.FindAllNewsResponse;
 import io.github.abradat.ps5news.service.CnnCrawler;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;

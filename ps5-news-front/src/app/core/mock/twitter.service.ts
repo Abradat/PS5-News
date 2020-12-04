@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Tweet, TweetData} from "../data/Tweet";
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class TwitterService extends TweetData{
@@ -11,10 +12,10 @@ export class TwitterService extends TweetData{
   }
 
   getTweets(): Observable<Tweet[]> {
-    return this.http.get<Tweet[]>('http://185.235.40.19:8080/api/twitter/tweets');
+    return this.http.get<Tweet[]>(environment.BASE_URL + '/api/twitter/tweets');
   }
 
   crawlTweets(): Observable<Tweet[]> {
-    return this.http.get<Tweet[]>('http://185.235.40.19:8080/api/twitter/actions/crawl');
+    return this.http.get<Tweet[]>(environment.BASE_URL + '/api/twitter/actions/crawl');
   }
 }
