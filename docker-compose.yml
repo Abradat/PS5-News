@@ -5,11 +5,17 @@ services:
     ports: 
       - "5432:5432"
     volumes: 
-      - postgres_data:/var/lib/postgresql/postgres_data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB:  ps5_news
       POSTGRES_USER: ps5
       POSTGRES_PASSWORD: ps5_123
+  chrome:
+    image: selenium/standalone-chrome
+    ports: 
+      - "4444:4444"
+    volumes: 
+      - /dev/shm:/dev/shm
 volumes: 
   postgres_data:
     name: ps5_news_postgres_data

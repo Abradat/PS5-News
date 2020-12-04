@@ -48,7 +48,7 @@ public class TwitterCrawler {
         configurationBuilder.setOAuthConsumerKey(consumerKey).setOAuthConsumerSecret(consumerSecret)
                 .setOAuthAccessToken(accessToken).setOAuthAccessTokenSecret(accessTokenSecret);
         twitterFactory = new TwitterFactory(configurationBuilder.build());
-        crawlTweets("ps5");
+//        crawlTweets("ps5");
     }
 
     public void crawlTweets(String topic) {

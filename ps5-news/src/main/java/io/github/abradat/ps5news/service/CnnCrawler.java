@@ -13,6 +13,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.Logger;
@@ -23,6 +25,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -38,6 +42,7 @@ public class CnnCrawler {
     @Value("${crawler.cnn.base-url}")
     private String cnnUrl;
 
+//    private WebDriver driver;
     private WebDriver driver;
     private CnnNewsRepository cnnNewsRepository;
 
@@ -48,10 +53,16 @@ public class CnnCrawler {
 
     @PostConstruct
     public void init() {
-        System.setProperty("webdriver.chrome.driver", "/Users/abradat/Desktop/Work/Code/Cor-Paul/driver/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/Users/abradat/Desktop/Work/Code/Cor-Paul/driver/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
-        this.driver = new ChromeDriver(options);
+//        this.driver = new ChromeDriver(options);
+        DesiredCapabilities dcap = DesiredCapabilities.chrome();
+        try {
+            this.driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), dcap);
+        } catch (MalformedURLException e) {
+            LOGGER.error("REMOTE NOT SUCCESSFUL");
+        }
 //        this.driver = new ChromeDriver();
 //        this.crawlNews();
     }
