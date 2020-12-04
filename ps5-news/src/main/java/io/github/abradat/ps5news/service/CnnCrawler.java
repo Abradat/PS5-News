@@ -107,7 +107,7 @@ public class CnnCrawler {
                 return Jsoup.parse(driver.getPageSource());
             }
         });
-//        this.driver.close();
+        this.driver.close();
         Elements results = doc.getElementsByClass("cnn-search__result");
         ArrayList<CnnNews> cnnNewsList = new ArrayList<CnnNews>();
         for(Element result: results) {
