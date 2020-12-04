@@ -15,7 +15,7 @@ The latest articles about PS5 is fetched from search section of CNN's website. L
 
 Selenium can be utilized for automated crawling complex websites. it gives the user full control of the browser. For example, in crawling search results, the results will arrive after some time. So, the result elements are not available, and the user has to wait for the elements to be completely loaded. Selenium **wait** functions gives the user the ability to wait for some elements to load.
 
-After the elements are loaded, their title, URL, title image URL are extracted. The crawler then send request to CNN for the article's page and extracts its body. Fetched data get persisted in database for further use.
+After the elements are loaded, their title, URL, and title image's URL are extracted. The crawler then sends request to CNN for the article's page and extracts its body. Fetched data get persisted in database for further use.
 
 ### Twitter Crawling
 Instead of using selenium, Twitter's Developer API is used for crawling data. Each time the latest 25 tweets containing the word **PS5** are fetched from Twitter. Username, publish date, and text of the tweets are extracted from the results.
@@ -25,7 +25,7 @@ Then, the body of tweet is analyzed by **Stanford Core NLP** for extracting the 
 ## Data Presentation
 Data collected is available through REST endpoints exposed by the Spring Boot application and Angular application. Angular Application is a simple dashboard, containing two menus for CNN and Twitter. They both also supports re-crawling the latest 25 news and tweets about PS5. Tweets are labled with their sentiments.
 
-Re-Crawl procedure is blocking, and user has to wait for the crawl to finish. As the number of users tweeting about PS5 are far more than articles published on CNN, re-crawling twitter in short time periods often will receive new results.
+Re-Crawl procedure is blocking, and user has to wait for the crawl to finish. As the number of users tweeting about PS5 are far more than articles being published on CNN, re-crawling twitter in short time periods often will receive new results.
 
 ## Running
 ### Running Back-End Services
