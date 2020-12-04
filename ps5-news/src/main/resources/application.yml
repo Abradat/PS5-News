@@ -18,5 +18,9 @@ crawler:
 webdriver:
   chrome:
 #    driver: /Users/abradat/Desktop/Work/Code/Cor-Paul/driver/chromedriver
-
+oauth:
+  consumer-key: JFlrs4RKdOYvezSLwoHltQBhE
+  consumer-secret: dNtIpNHkhjK7Y0yLclJO8Yz67hZL1z6yrcFbjFvkDjhTG50TNq
+  access-token: 796224920162365442-tCSBXRiM018oEcjgShFDopyIdrvmGcn
+  access-token-secret: b5KApISBvLYoFJzocBQB5kt9cHvPlzm6mTaGYzAwF2EkQ
 
