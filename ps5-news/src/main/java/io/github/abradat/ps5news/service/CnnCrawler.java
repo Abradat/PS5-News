@@ -115,6 +115,8 @@ public class CnnCrawler {
                     .getAllElements().first().getElementsByIndexEquals(1).first().text();
             String body = getNewsBody(url);
             Date publishDate = getNewsDate(publishDateString);
+            LOGGER.info("String is: " + publishDateString);
+            LOGGER.info(publishDate.toString());
             if(cnnNewsRepository.findCnnNewsByUrl(url) != null) {
                 continue;
             }
@@ -152,7 +154,7 @@ public class CnnCrawler {
     }
 
     public Date getNewsDate(String publishDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, YYYY");
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
         try {
             return formatter.parse(publishDate);
         } catch (ParseException e) {

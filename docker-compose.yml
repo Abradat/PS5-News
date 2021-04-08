@@ -17,6 +17,7 @@ services:
     volumes: 
       - /dev/shm:/dev/shm
   backend:
+    # image: abradat/ps5-news:latest
     build: 
       ./ps5-news
     ports:
